@@ -43,7 +43,7 @@ function Login({ onLogin, onBack, onSignupClick, onForgotPassword }) {
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("Connection error. Is the backend running?");
+      setError(`Connection error. Is the backend running at ${API_BASE_URL}?`);
     } finally {
       setLoading(false);
     }
