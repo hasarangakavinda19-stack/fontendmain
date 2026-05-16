@@ -6,7 +6,6 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import ReCAPTCHA from "react-google-recaptcha";
 import API_BASE_URL from "./config";
 import { getAuthHeaders } from "./auth";
 import { showToast } from "./toast";
@@ -200,62 +199,13 @@ function CheckoutForm({ onNavigate, bookingData }) {
   );
 }
 
-// ── CAPTCHA Step ─────────────────────────────────────────────────────────────
-function CaptchaStep({ onVerified }) {
-  const recaptchaRef = useRef(null);
-  const [verified, setVerified] = useState(false);
-
-  const handleChange = (value) => {
-    if (value) setVerified(true);
-  };
-
-  return (
-    <div
-      className="page-container"
-      style={{ textAlign: "center", paddingTop: "60px" }}
-    >
-      <div className="payment-header">
-        <h1>Security Check</h1>
-        <p>Please verify you are human before proceeding to payment</p>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "24px",
-          marginTop: "40px",
-        }}
-      >
-        <ReCAPTCHA
-          ref={recaptchaRef}
-          sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-          onChange={handleChange}
-          onExpired={() => setVerified(false)}
-        />
-
-        <button
-          className="btn-pay"
-          disabled={!verified}
-          onClick={onVerified}
-          style={{
-            opacity: verified ? 1 : 0.5,
-            cursor: verified ? "pointer" : "not-allowed",
-          }}
-        >
-          Continue to Payment →
-        </button>
-      </div>
-    </div>
-  );
-}
+// CaptchaStep removed as requested
 
 // ── Main Wrapper ─────────────────────────────────────────────────────────────
 function PaymentGateway({ onNavigate, room }) {
   const bookingData = room || null;
   const [clientSecret, setClientSecret] = useState("");
-  const [captchaPassed, setCaptchaPassed] = useState(false);
+  const [captchaPassed, setCaptchaPassed] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -307,10 +257,7 @@ function PaymentGateway({ onNavigate, room }) {
     );
   }
 
-  // Step 1: CAPTCHA
-  if (!captchaPassed) {
-    return <CaptchaStep onVerified={() => setCaptchaPassed(true)} />;
-  }
+  // Step 1: CAPTCHA (removed)
 
   // Step 2: Payment loading
   if (loading || !clientSecret) {
