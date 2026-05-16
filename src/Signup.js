@@ -83,7 +83,7 @@ function Signup({ onLoginClick, onBack }) {
       }
     } catch (err) {
       console.error("Error:", err);
-      setError("Connection error. Make sure backend is running on port 5000");
+      setError(`Connection error. Make sure backend is running at ${API_BASE_URL}`);
     } finally {
       setLoading(false);
     }
