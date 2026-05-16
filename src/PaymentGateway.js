@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
@@ -205,7 +205,7 @@ function CheckoutForm({ onNavigate, bookingData }) {
 function PaymentGateway({ onNavigate, room }) {
   const bookingData = room || null;
   const [clientSecret, setClientSecret] = useState("");
-  const [captchaPassed, setCaptchaPassed] = useState(true);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
