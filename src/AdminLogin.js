@@ -44,7 +44,7 @@ function AdminLogin({ onNavigate, onAdminLogin }) {
       onAdminLogin(data);
     } catch (err) {
       console.error(err);
-      showToast("Connection error. Is the backend running?", "error");
+      showToast(`Connection error. Is the backend running at ${API_BASE_URL}?`, "error");
     } finally {
       setLoading(false);
     }
